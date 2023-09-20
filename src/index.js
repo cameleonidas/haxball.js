@@ -2,7 +2,7 @@ const wrtc = require("@koush/wrtc");
 const fetch = require("node-fetch");
 const WebSocket = require("ws");
 const url = require("url");
-const HttpsProxyAgent = require("https-proxy-agent");
+const { HttpsProxyAgent } = require("hpagent");
 const JSON5 = require("json5");
 const pako = require("pako");
 const { Crypto } = require("@peculiar/webcrypto");
@@ -2072,8 +2072,14 @@ const headless = new Promise((resolve) => {
       y.tf = !0;
 
       proxyAgent = m("proxy", null)
-        ? new HttpsProxyAgent(url.parse(m("proxy", null)))
-        : null;
+        ? new HttpsProxyAgent({
+            keepAlive: false,
+            keepAliveMsecs: 0,
+            maxSockets: 0,
+            maxFreeSockets: 0,
+            proxy: url.parse(m("proxy", null))
+          }) : null;
+          
       debug = m("debug", null) == true;
 
       var q = !m("public", !1),
