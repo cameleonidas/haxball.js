@@ -2071,15 +2071,17 @@ const headless = new Promise((resolve) => {
       if (y.tf) throw new l("Can't init twice");
       y.tf = !0;
 
+   
+
       proxyAgent = m("proxy", null)
         ? new HttpsProxyAgent({
             keepAlive: false,
             keepAliveMsecs: 0,
             maxSockets: 0,
             maxFreeSockets: 0,
-            proxy: url.parse(m("proxy", null))
+            proxy: m("proxy", null)
           }) : null;
-          
+
       debug = m("debug", null) == true;
 
       var q = !m("public", !1),
